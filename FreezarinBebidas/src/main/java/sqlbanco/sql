@@ -1,0 +1,70 @@
+
+CREATE DATABASE "Freezarin"
+  WITH OWNER = postgres
+       ENCODING = 'UTF8'
+       TABLESPACE = pg_default
+       LC_COLLATE = 'Portuguese_Brazil.1252'
+       LC_CTYPE = 'Portuguese_Brazil.1252'
+       CONNECTION LIMIT = -1;
+
+
+CREATE TABLE public.model_login
+(
+  login character varying(200) NOT NULL,
+  senha character varying(200) NOT NULL,
+  id integer NOT NULL DEFAULT nextval('model_login_id_seq'::regclass),
+  nome character varying(300) NOT NULL,
+  email character varying(300) NOT NULL,
+  CONSTRAINT model_login_pkey PRIMARY KEY (id),
+  CONSTRAINT login_unique UNIQUE (login)
+)
+WITH (
+  OIDS=FALSE
+);
+
+
+
+//se nao der certo use esse
+
+CREATE TABLE public.model_login
+(
+  login character varying(200),
+  senha character varying(200),
+  id integer NOT NULL DEFAULT nextval('model_login_id_seq'::regclass),
+  nome character varying(300),
+  email character varying(300),
+  CONSTRAINT model_login_pkey PRIMARY KEY (id)
+)
+
+ALTER TABLE public.model_login
+  OWNER TO postgres;
+
+
+
+
+ALTER TABLE public.model_login
+  OWNER TO postgres;
+  
+  
+  INSERT INTO public.model_login(
+            login, senha)
+    VALUES ( 'admin', 'admin');
+    -- Sequence: public.serialuser
+
+-- DROP SEQUENCE public.model_login_id_seq;
+
+CREATE SEQUENCE public.model_login_id_seq
+  INCREMENT 1
+  MINVALUE 1
+  MAXVALUE 2353254264633646
+  START 206
+  CACHE 1;
+ALTER TABLE public.model_login_id_seq
+  OWNER TO postgres;
+  
+  
+  ALTER TABLE public.model_login ADD COLUMN id integer;
+ALTER TABLE public.model_login ALTER COLUMN id SET NOT NULL;
+ALTER TABLE public.model_login ALTER COLUMN id SET DEFAULT nextval('model_login_id_seq'::regclass);
+  
+    
