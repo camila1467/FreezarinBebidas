@@ -106,14 +106,38 @@
 <jsp:include page="javascripfile.jsp"></jsp:include>
 
 <script type="text/javascript">
-
+function criarDeleteComajax() {
+	   if(confirm("deseja realmente excluir os dados?")){
+		   
+	    var urlAction=document.geElementById('formUser').action;
+	   	var idUser=  document.geElementById('id').value;
+	  
+	   $.ajax ({
+		   method: "get",
+	   url : urlAction,
+	   data: "id="+idUser+'&acao=deletarajax',
+	   sucess:function(response){
+		   alert(response);
+	   }
+	   
+	   }).fail(function(xhr, status, errorThrown)
+		{
+				alert('Erro ao deletar usuario por id:'+xhr.responseText);
+	   });
+	   
+	   }
+	
+	
+}
 function criarDelete() {
+    if(confirm("deseja realmente excluir os dados?")){
+    	
     
     document.getElementById("formUser").method = 'get';
     document.getElementById("acao").value = 'deletar';
     document.getElementById("formUser").submit();
     
-}
+}}
 
 /*limpa o formulario*/
 function limparForm() {
