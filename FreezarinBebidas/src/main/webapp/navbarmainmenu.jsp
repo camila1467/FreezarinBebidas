@@ -59,16 +59,16 @@
                                           </a>
                                       </li>
                                       <li class=" ">
-                                          <a href="breadcrumb.html" class="waves-effect waves-dark">
+                                          <a href="<%=request.getContextPath() %>/cadastroProduto.jsp" class="waves-effect waves-dark">
                                               <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                              <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">Breadcrumbs</span>
+                                              <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Produto</span>
                                               <span class="pcoded-mcaret"></span>
                                           </a>
                                       </li>
-                                      <li class=" ">
-                                          <a href="button.html" class="waves-effect waves-dark">
+                                     <li class=" ">
+                                          <a href="<%=request.getContextPath() %>/tabelaProduto.jsp" class="waves-effect waves-dark">
                                               <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                              <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Button</span>
+                                              <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Produto tabela</span>
                                               <span class="pcoded-mcaret"></span>
                                           </a>
                                       </li>
