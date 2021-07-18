@@ -62,24 +62,33 @@
                                                             </div>
                                                             
                                                              <div class="form-group form-default form-static-label">
-                                                                <input type="text" name="nome" id="nome" class="form-control" required="required" value="${produto.quantidade}">
+                                                                <input type="text" name="quantidade" id="quantidade" class="form-control" required="required" value="${produto.quantidade}">
                                                                 <span class="form-bar"></span>
                                                                 <label class="float-label">Quantidade:</label>
                                                             </div>
                                                             
                                                            <div class="form-group form-default form-static-label">
-                                                                <input type="text" id="valor" name="valor"  class="form-control" required="required"  value="${produto.valorEmTexto}">
+                                                                <input type="text" id="valor" name="valor"  class="form-control" required="required"  value="${produto.valor}">
                                                                 <span class="form-bar"></span>
                                                                 <label class="float-label">Valor R$:</label>
                                                             </div>
-                                                            
+                                                            <div class="input-group mb-3">
+  <div class="input-group-prepend">
+    <label class="input-group-text" for="inputGroupSelect01">Opção</label>
+  </div>
+  <select class="custom-select" id="inputGroupSelect01" name="escolha">
+    <option selected>escolher...</option>
+    <option value="1">Bebida alcoólica</option>
+    <option value="2">Bebida não alcoólica</option>
+  </select>
+</div>
                                                             
                                                             
                                                             <button type="button" class="btn btn-primary waves-effect waves-light" onclick="limparForm();" >Novo</button>
-												            <button  class="btn btn-success waves-effect waves-light">Salvar</button>
+												            <button  class="btn btn-success waves-effect waves-light" >Salvar</button>
 												            <button type="button"  class="btn btn-info waves-effect waves-light" onclick="criarDelete();" >Excluir</button>
-<button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModalUsuario">
-  pesquisar</button>                                                        </form> 
+       
+                                                     </form> 
                                                    
                                                 </div>
                                                 </div>
@@ -153,9 +162,7 @@
 			}
 			return true;
 		}
-		
-		
-		
+
 		function criarDelete() {
 		    
 		    if(confirm('Deseja realmente excluir os dados?')) {
@@ -167,18 +174,28 @@
 		    }
 		    
 		}
+		function limparForm() {
+		    
+		    var elementos = document.getElementById("formUser").elements; /*Retorna os elementos html dentro do form*/
+		    
+		    for (p = 0; p < elementos.length; p ++){
+			    elementos[p].value = '';
+		    }
+		}
+		
+		
 		function criarDeleteComAjax() {
 		    
 		    if (confirm('Deseja realmente excluir os dados?')){
 			
 			 var urlAction = document.getElementById('formUser').action;
-			 var idUser = document.getElementById('id').value;
+			 var idUser = document.getElementById('nome1').value;
 			 
 			 $.ajax({
 			     
 			     method: "get",
 			     url : urlAction,
-			     data : "id=" + idUser + '&acao=deletarajax',
+			     data : "nome=" + idUser + '&acao=deletarajax',
 			     success: function (response) {
 				 
 				  limparForm();
@@ -194,10 +211,7 @@
 		    
 		}
 
-	</script>
-</body>
-
-<script type="text/javascript">
+	</script><script type="text/javascript">
 
 $(function() {
     $('#valor').maskMoney();
@@ -211,4 +225,9 @@ $(function() {
 });
 
 </script>
+</body>
+
+
+
+
 </html>

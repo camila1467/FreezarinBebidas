@@ -11,9 +11,22 @@ public class BeanProduto  implements Serializable{
 
 	private Long id;
 	private String nome;
-	private double quantidade;
-	private double valor;
+	private int quantidade;
+	private float valor;
 	
+	
+public boolean isNovo() {
+		
+		if (this.id == null)/*pega o atributo da classe*/ {
+			return true; /*Inserir novo*/
+		}else if (this.id != null && this.id > 0) {
+			return false; /*Atualizar*/
+		}
+			
+		
+		return id == null;
+	}
+
 	public Long getId() {
 		return this.id;
 	}
@@ -27,23 +40,23 @@ public class BeanProduto  implements Serializable{
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	
-	public double getQuantidade() {
+
+	public int getQuantidade() {
 		return this.quantidade;
 	}
-	public void setQuantidade(double quantidade) {
+
+	public void setQuantidade(int quantidade) {
 		this.quantidade = quantidade;
 	}
-	
-	public double getValor() {
+
+	public float getValor() {
 		return this.valor;
 	}
-	public void setValor(double valor) {
+
+	public void setValor(float valor) {
 		this.valor = valor;
 	}
+
 	
-	public String getValorEmTexto(){
-		return Double.toString(valor).replace('.', ',');
-	}
 	
 }
