@@ -20,8 +20,8 @@ public class DaoProduto1 {
 	}
 	
 	
-	public void salvar(BeanProduto produto) {
-		try {
+	public BeanProduto salvar(BeanProduto produto) throws Exception {
+		
 			String sql = "INSERT INTO produto(nome, quantidade, valor) VALUES(?, ?, ?)";
 			PreparedStatement insert = connection.prepareStatement(sql);
 			insert.setString(1, produto.getNome());
@@ -29,52 +29,37 @@ public class DaoProduto1 {
 			insert.setFloat(3, produto.getValor());
 			insert.execute();
 			connection.commit();
-		} catch(Exception e) {
-			e.printStackTrace();
-			try {
-				connection.rollback();
-			} catch (SQLException e1) {
-				e1.printStackTrace();
-			}
-		}
+		 
+		return this.consultarUsuario(produto.getNome());
+
 	}
 		
 	
 	
 	
 	
+public BeanProduto consultarUsuario(String  nome) throws Exception  {
+		
+	BeanProduto produto1 = new BeanProduto();
 	
-
-	
-	
-	public BeanProduto consultarUsuario(String id) throws Exception {
-		String sql = "SELECT * FROM produto WHERE id = '"+ id +"'";
-		PreparedStatement preparedStatement = connection.prepareStatement(sql);
-		ResultSet resultSet = preparedStatement.executeQuery();
-			if(resultSet.next()) {
-				BeanProduto produto = new BeanProduto();
-				produto.setId(resultSet.getLong("id"));
-				produto.setNome(resultSet.getString("nome"));
-				produto.setQuantidade(resultSet.getInt("quantidade"));
-				produto.setValor(resultSet.getFloat("valor"));
-				return produto;
-			}
-		return null;
+	String sql = "select * from produto where upper(nome) = upper('"+nome+"')";
+		PreparedStatement statement = connection.prepareStatement(sql);
+		
+		ResultSet resultSet =  statement.executeQuery();
+		
+		while (resultSet.next()) /*Se tem resultado*/ {
+			produto1.setId(resultSet.getLong("id"));
+			produto1.setNome(resultSet.getString("nome"));
+			produto1.setQuantidade(resultSet.getInt("quantidade"));
+			produto1.setValor(resultSet.getFloat("valor"));
+			
+		}
+		
+		
+		return produto1;
+		
 	}
-	public BeanProduto consultar(String id) throws Exception {
-		String sql = "SELECT * FROM produto WHERE id = '"+ id +"'";
-		PreparedStatement preparedStatement = connection.prepareStatement(sql);
-		ResultSet resultSet = preparedStatement.executeQuery();
-			if(resultSet.next()) {
-				BeanProduto produto = new BeanProduto();
-				produto.setId(resultSet.getLong("id"));
-				produto.setNome(resultSet.getString("nome"));
-				produto.setQuantidade(resultSet.getInt("quantidade"));
-				produto.setValor(resultSet.getFloat("valor"));
-				return produto;
-			}
-		return null;
-	}
+	
 	public boolean validarNome(String nome) throws Exception {
 		String sql = "SELECT COUNT(1) as qtde FROM produto WHERE nome = '"+ nome +"'";
 		PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -84,9 +69,6 @@ public class DaoProduto1 {
 			}
 		return false;
 	}
-	
-	
-
 	public List<BeanProduto> listar() throws Exception {
 		List<BeanProduto> listar = new ArrayList<BeanProduto>();
 		String sql = "SELECT * FROM produto";
@@ -102,6 +84,23 @@ public class DaoProduto1 {
 			}
 			return listar;
 	}
+	
+
+	/*public List<BeanProduto> listar() throws Exception {
+		List<BeanProduto> listar = new ArrayList<BeanProduto>();
+		String sql = "SELECT * FROM produto";
+		PreparedStatement statement = connection.prepareStatement(sql);
+		ResultSet resultSet = statement.executeQuery();
+			while(resultSet.next()) {
+				BeanProduto produto = new BeanProduto();
+				produto.setId(resultSet.getLong("id"));
+				produto.setNome(resultSet.getString("nome"));
+				produto.setQuantidade(resultSet.getInt("quantidade"));
+				produto.setValor(resultSet.getFloat("valor"));
+				listar.add(produto);
+			}
+			return listar;
+	}*/
 	
 	public void deletarUser(String nome1) throws Exception {
 		String sql = "DELETE FROM produto WHERE nome = ?;";
@@ -121,7 +120,7 @@ public class DaoProduto1 {
 			PreparedStatement preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setString(1, produto.getNome());
 			preparedStatement.setInt(2, produto.getQuantidade());
-			preparedStatement.setFloat(3, produto.getValor());
+			preparedStatement.setFloat(3, produto.getValor()); 
 			preparedStatement.executeUpdate();
 			connection.commit();
 		} catch(Exception e) {

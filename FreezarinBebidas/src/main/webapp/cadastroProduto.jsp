@@ -49,12 +49,11 @@
           												    
           												    <input type="hidden" name="acao" id="acao" value="">
           												 
-                                                            <div class="form-group form-default form-static-label">
+															<div class="form-group form-default form-static-label">
                                                                 <input type="text" name="id" id="id" class="form-control"  readonly="readonly" value="${produto.id}">
                                                                 <span class="form-bar"></span>
                                                                 <label class="float-label">ID:</label>
                                                             </div>
-                                                            
                                                               <div class="form-group form-default form-static-label">
                                                                 <input type="text" name="nome" id="nome" class="form-control" required="required" value="${produto.nome}">
                                                                 <span class="form-bar"></span>
@@ -74,6 +73,7 @@
                                                             </div>
                                                             <div class="input-group mb-3">
   <div class="input-group-prepend">
+  <br/>
     <label class="input-group-text" for="inputGroupSelect01">Opção</label>
   </div>
   <select class="custom-select" id="inputGroupSelect01" name="escolha">
@@ -112,42 +112,6 @@
 <jsp:include page="javascripfile.jsp"></jsp:include>
 
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModalUsuario" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Pesquisa de usuário</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-
-	  <input type="text" class="form-control" placeholder="Nome" aria-label="nome" id="nomeBusca" aria-describedby="basic-addon2">
-	  <div class="input-group-append">
-	    <button class="btn btn-success" type="button" onclick="buscarUsuario();">Buscar</button>
-	  </div>
-	</div>
-	
-<table class="table" id="tabelaresultados">
-  <thead>
-    <tr>
-      <th scope="col">ID</th>
-      <th scope="col">Nome</th>
-      <th scope="col">Ver</th>
-     
-    </tr>
-  </thead>
-  
-</table>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-      </div>
-    </div>
-  </div>
-</div>
 	<script type="text/javascript">
 		function validarCampos() {
 			if(document.getElementById("nome").value == '') {

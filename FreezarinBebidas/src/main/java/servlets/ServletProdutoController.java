@@ -42,19 +42,17 @@ public class ServletProdutoController extends HttpServlet {
 	  
 	  
 				else if (acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("deletarajax")) {
-			BeanProduto beanProduto = daoProduto.consultar(produto);
+			BeanProduto beanProduto = daoProduto.consultarUsuario(produto);
 
     				 String idUser = request.getParameter("nome");
-    				 
     				 daoProduto.deletarUser(idUser);
-    				 
     				 response.getWriter().write("Excluido com sucesso!");
     					RequestDispatcher view = request
     							.getRequestDispatcher("/cadastroProduto.jsp");
     					request.setAttribute("produto", beanProduto);
     					view.forward(request, response);
     		 } else if (acao.equalsIgnoreCase("editar")) {
-					BeanProduto beanProduto = daoProduto.consultar(produto);
+					BeanProduto beanProduto = daoProduto.consultarUsuario(produto);
 					RequestDispatcher view = request
 							.getRequestDispatcher("/cadastroProduto.jsp");
 					request.setAttribute("produto", beanProduto);
@@ -62,7 +60,7 @@ public class ServletProdutoController extends HttpServlet {
 				} else if (acao.equalsIgnoreCase("listartodos")) {
 
 					RequestDispatcher view = request
-							.getRequestDispatcher("/cadastroProduto.jsp");
+							.getRequestDispatcher("/tabelaDeProdutos.jsp");
 					request.setAttribute("produtos", daoProduto);
 					view.forward(request, response);
 				}
@@ -74,25 +72,18 @@ public class ServletProdutoController extends HttpServlet {
 
 		protected void doPost(HttpServletRequest request,
 				HttpServletResponse response) throws ServletException, IOException {
-
-			String acao = request.getParameter("acao");
-
-				
-
 				String id = request.getParameter("id");
 				String nome = request.getParameter("nome");
 				String quantidade = request.getParameter("quantidade");
 				String valor = request.getParameter("valor");
-BeanProduto beanProduto= new BeanProduto();
-
-
+/*
+				BeanProduto beanProduto= new BeanProduto();
 beanProduto.setId(id != null && !id.isEmpty() ? Long.parseLong(id) : null);
 beanProduto.setNome(nome);
 beanProduto.setValor(Float.parseFloat(valor));
 beanProduto.setQuantidade(Integer.parseInt(quantidade));
-System.out.println(valor);
-System.out.println(quantidade);
 
+*/
 				try {
 
 					String msg = null;
@@ -120,8 +111,9 @@ System.out.println(quantidade);
 
 					BeanProduto produto = new BeanProduto();
 					produto.setNome(nome);
-					produto.setId(!id.isEmpty() ? Long.parseLong(id) : null);
+					produto.setId((id != null && !id.isEmpty()) ? Long.parseLong(id) : null);
 
+					
 					if (quantidade != null && !quantidade.isEmpty()) {
 						produto.setQuantidade(Integer.parseInt(quantidade));
 					}
@@ -138,7 +130,7 @@ System.out.println(quantidade);
 					else if (id == null || id.isEmpty()
 							&& daoProduto.validarNome(nome) && podeInserir) {
 
-						daoProduto.salvar(produto);
+					produto =	daoProduto.salvar(produto);
 					}
 					if (msg != null) {
 						request.setAttribute("msg", msg);
@@ -147,16 +139,14 @@ System.out.println(quantidade);
 					}
 
 					if (!podeInserir) {
-						request.setAttribute("produto", beanProduto);
+						request.setAttribute("produto", produto);
 
 					}
 					//beanProduto=daoProduto.salvar(beanProduto);
-
-					
-					
 		    		request.setAttribute("msg", msg);
-		    		request.setAttribute("produto", beanProduto);
+		    		request.setAttribute("produto", produto);
 		    		request.getRequestDispatcher("/cadastroProduto.jsp").forward(request, response);
+		    		//request.setAttribute("produtos", daoProduto.listar());
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
